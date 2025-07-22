@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Classroom</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-image: url('pixel.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-6 relative backdrop-blur-md bg-opacity-80">
+
+  <!-- Top-right: Home button + Profile icon -->
+  <div class="absolute top-4 right-4 flex gap-4 items-center z-50">
+    <button onclick="window.location.href='index.html'"
+      class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-full text-sm shadow-lg">Home</button>
+    <div class="w-10 h-10 rounded-full border-2 border-indigo-600 flex items-center justify-center bg-white shadow-md">
+      <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M5.121 17.804A9.003 9.003 0 0112 15a9.003 9.003 0 016.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Heading -->
+  <div class="max-w-6xl mx-auto mt-20 bg-white/70 backdrop-blur-md p-6 rounded-xl shadow-xl">
+    <h1 class="text-3xl font-bold text-indigo-700 mb-2">🎓 Welcome to Your Classroom</h1>
+    <p id="userName" class="text-lg text-gray-800"></p>
+    <p id="subjectHeading" class="text-md mt-2 font-medium text-gray-800"></p>
+  </div>
+
+  <!-- Videos -->
+  <div class="max-w-6xl mx-auto mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="videoCards"></div>
+
+  <!-- Script -->
+  <script>
+    const videoDB = {
+      Java: [
+        "https://www.youtube.com/embed/GoXwIVyNvX0",
+        "https://www.youtube.com/embed/rV_3Lewxx6o",
+        "https://www.youtube.com/embed/grEKMHGYyns",
+        "https://www.youtube.com/embed/eIrMbAQSU34",
+        "https://www.youtube.com/embed/UmnCZ7-9yDY",
+        "https://www.youtube.com/embed/kjBOesZCoqc"
+      ],
+      Python: [
+        "https://www.youtube.com/embed/rfscVS0vtbw",
+        "https://www.youtube.com/embed/_uQrJ0TkZlc",
+        "https://www.youtube.com/embed/XKHEtdqhLK8",
+        "https://www.youtube.com/embed/WGJJIrtnfpk",
+        "https://www.youtube.com/embed/KGkiIBTq0y0",
+        "https://www.youtube.com/embed/CBYHwZcbD-s"
+      ],
+      DBMS: [
+        "https://www.youtube.com/embed/TYo_CUnIWP8",
+        "https://www.youtube.com/embed/2XK4YtVh2Ws",
+        "https://www.youtube.com/embed/l4mpyJv6uVc",
+        "https://www.youtube.com/embed/mYI2nopkQJE",
+        "https://www.youtube.com/embed/3eQGW0nt-PM",
+        "https://www.youtube.com/embed/kBdlM6hNDAE"
+      ],
+          English: [
+        "https://www.youtube.com/embed/KjY94sAKLlw",
+        "https://www.youtube.com/embed/MZp1a1U4IOk",
+        "https://www.youtube.com/embed/A7J9GhtGg94",
+        "https://www.youtube.com/embed/_dD3WbVg8P8",
+        "https://www.youtube.com/embed/XFfYCQ4GZRE",
+        "https://www.youtube.com/embed/yR4R9j5Gthg"
+      ],
+      Telugu: [
+        "https://www.youtube.com/embed/sj0kS7L8KTI",
+        "https://www.youtube.com/embed/fz3Xr5hyDfM",
+        "https://www.youtube.com/embed/MQFaFbSN2V4",
+        "https://www.youtube.com/embed/U0TYCttxJgE",
+        "https://www.youtube.com/embed/CEQ2s2gmpI4",
+        "https://www.youtube.com/embed/r6ZkKcm2UKk"
+      ],
+      Maths: [
+        "https://www.youtube.com/embed/nlUQ1O2xtk8",
+        "https://www.youtube.com/embed/3UczjzF20kI",
+        "https://www.youtube.com/embed/bKz1F1f-Dww",
+        "https://www.youtube.com/embed/VB7m5Aq6jJ8",
+        "https://www.youtube.com/embed/ZzQ2Zq3sl64",
+        "https://www.youtube.com/embed/DjQJ7n4vKXw"
+      ],
+      Physics: [
+        "https://www.youtube.com/embed/fPp2oNafkUo",
+        "https://www.youtube.com/embed/YvOKpLxjA6M",
+        "https://www.youtube.com/embed/HUHZqYZWd8U",
+        "https://www.youtube.com/embed/oVOnRPefcno",
+        "https://www.youtube.com/embed/DFa7uTozJv0",
+        "https://www.youtube.com/embed/qUo3xVxkBMw"
+      ],
+      Chemistry: [
+        "https://www.youtube.com/embed/YVd4iALPQ24",
+        "https://www.youtube.com/embed/M1UuL9HqzHc",
+        "https://www.youtube.com/embed/MAwprzH2bXE",
+        "https://www.youtube.com/embed/qwqzYjOqL0Q",
+        "https://www.youtube.com/embed/1xMQbaRWU2A",
+        "https://www.youtube.com/embed/Z-2hC_64NaI"
+      ],
+      Biology: [
+        "https://www.youtube.com/embed/GHoaiZlKSTI",
+        "https://www.youtube.com/embed/l0cGnvV8dx0",
+        "https://www.youtube.com/embed/SSfv9H4jXrQ",
+        "https://www.youtube.com/embed/cALgIHETMDU",
+        "https://www.youtube.com/embed/M92wKnm2f_g",
+        "https://www.youtube.com/embed/M_QBHOZ_IWc"
+      ],
+      Social: [
+        "https://www.youtube.com/embed/35Y7-JBxHZA",
+        "https://www.youtube.com/embed/3KquFZYi6L0",
+        "https://www.youtube.com/embed/M1TzPcuTQ_E",
+        "https://www.youtube.com/embed/o9mlP_B4U1Q",
+        "https://www.youtube.com/embed/nlDI93kONoc",
+        "https://www.youtube.com/embed/7zR5AG-VgxM"
+      ],
+      Computer: [
+        "https://www.youtube.com/embed/HVsySz-h9r4",
+        "https://www.youtube.com/embed/zOjov-2OZ0E",
+        "https://www.youtube.com/embed/JbopMQD1WKY",
+        "https://www.youtube.com/embed/X3paOmcrTjQ",
+        "https://www.youtube.com/embed/8mAITcNt710",
+        "https://www.youtube.com/embed/ORcBX9k3ytU"
+      ],
+      Python: [
+        "https://www.youtube.com/embed/rfscVS0vtbw",
+        "https://www.youtube.com/embed/_uQrJ0TkZlc",
+        "https://www.youtube.com/embed/XKHEtdqhLK8",
+        "https://www.youtube.com/embed/WGJJIrtnfpk",
+        "https://www.youtube.com/embed/KGkiIBTq0y0",
+        "https://www.youtube.com/embed/CBYHwZcbD-s"
+      ],
+      Java: [
+        "https://www.youtube.com/embed/GoXwIVyNvX0",
+        "https://www.youtube.com/embed/rV_3Lewxx6o",
+        "https://www.youtube.com/embed/grEKMHGYyns",
+        "https://www.youtube.com/embed/eIrMbAQSU34",
+        "https://www.youtube.com/embed/UmnCZ7-9yDY",
+        "https://www.youtube.com/embed/kjBOesZCoqc",
+        "https://www.youtube.com/embed/BGTx91t8q50"
+      ],
+      
+      "M-1": [
+        "https://www.youtube.com/embed/3UczjzF20kI" ,
+        "https://www.youtube.com/embed/QzVdT2JQz60" ,
+        "https://www.youtube.com/embed/3kzFobfUsFY" ,
+        "https://www.youtube.com/embed/eoGBa1pUj6A" ,
+        "https://www.youtube.com/embed/xwGJ7vwH0SY" ,
+        "https://www.youtube.com/embed/d3jEXiFffUQ" 
+      ],
+      "M-2": [
+        "https://www.youtube.com/embed/bKz1F1f-Dww",
+        "https://www.youtube.com/embed/tFd-R6yM8vU",
+        "https://www.youtube.com/embed/8aGd0m5pG9U",
+        "https://www.youtube.com/embed/9rx7-YmohX8",
+        "https://www.youtube.com/embed/mkx8OMPtKPY",
+        "https://www.youtube.com/embed/CsXAdqahvO4" 
+      ],
+      "BEEE": [
+        "https://www.youtube.com/embed/3svIiRnDAaQ" ,
+        "https://www.youtube.com/embed/y7vw8sDzG-A" ,
+        "https://www.youtube.com/embed/GE7N65tvhXY" ,
+        "https://www.youtube.com/embed/bSrPYh9-t8k" ,
+        "https://www.youtube.com/embed/EExbdZ60t1s" ,
+        "https://www.youtube.com/embed/TxU-0nDF1pg"
+  ],
+      "ES": [
+        "https://www.youtube.com/embed/jpyBhxP0CcY" ,
+        "https://www.youtube.com/embed/XevQn9lC0Fo" ,
+        "https://www.youtube.com/embed/0-Awny43lLw" ,
+        "https://www.youtube.com/embed/MJ6JdyxICgA" ,
+        "https://www.youtube.com/embed/GFOlJ4FQpdc" ,
+        "https://www.youtube.com/embed/hTDwnYJ7LoQ" 
+  ],
+      DLD: [
+    "https://www.youtube.com/embed/qYJ6h1YGe0Y",
+    "https://www.youtube.com/embed/G4DQGQRp9Z4",
+    "https://www.youtube.com/embed/yHhCwhpDcjI",
+    "https://www.youtube.com/embed/MUYhm2vP3b0",
+    "https://www.youtube.com/embed/Ad3x0DIaP8I",
+    "https://www.youtube.com/embed/VZL5YkqkxAQ"
+  ],
+  "P&S": [
+    "https://www.youtube.com/embed/TjZBTDzGeGg",
+    "https://www.youtube.com/embed/PMprXpbohGI",
+    "https://www.youtube.com/embed/4jK53C6BozA",
+    "https://www.youtube.com/embed/ft-Xm1wHSZk",
+    "https://www.youtube.com/embed/EYH8K6PCJYw",
+    "https://www.youtube.com/embed/I18E7VBIaDg"
+  ],
+  DBMS: [
+    "https://www.youtube.com/embed/TYo_CUnIWP8",
+    "https://www.youtube.com/embed/2XK4YtVh2Ws",
+    "https://www.youtube.com/embed/l4mpyJv6uVc",
+    "https://www.youtube.com/embed/mYI2nopkQJE",
+    "https://www.youtube.com/embed/3eQGW0nt-PM",
+    "https://www.youtube.com/embed/kBdlM6hNDAE"
+  ],
+  MFCS: [
+    "https://www.youtube.com/embed/RsS7BznZcd0",
+    "https://www.youtube.com/embed/ZxhkXajvfj4",
+    "https://www.youtube.com/embed/hHddnQTrVXg",
+    "https://www.youtube.com/embed/fIQvE2EJkD4",
+    "https://www.youtube.com/embed/TZ0k7Glxh-c",
+    "https://www.youtube.com/embed/KGfMFWxvzlM"
+  ],
+  OS: [
+    "https://www.youtube.com/embed/YWnKckcEz2o",
+    "https://www.youtube.com/embed/M3t5oD8z1KE",
+    "https://www.youtube.com/embed/XgQo4JkN4eo",
+    "https://www.youtube.com/embed/a1l4MceYHaQ",
+    "https://www.youtube.com/embed/qMNTf7xDWuI",
+    "https://www.youtube.com/embed/ixZz7Kn8qUQ"
+  ],
+  AI: [
+    "https://www.youtube.com/embed/2ePf9rue1Ao",
+    "https://www.youtube.com/embed/4PDTkEwhYq4",
+    "https://www.youtube.com/embed/JMUxmLyrhSk",
+    "https://www.youtube.com/embed/9K0S6gUeRYM",
+    "https://www.youtube.com/embed/pqNCD_5r0IU",
+    "https://www.youtube.com/embed/2wZ9k_BijFc"
+  ],
+  R: [
+    "https://www.youtube.com/embed/_V8eKsto3Ug",
+    "https://www.youtube.com/embed/H3A0b0WaoD0",
+    "https://www.youtube.com/embed/32o0DnuRjfg",
+    "https://www.youtube.com/embed/IuznFFNo1Rk",
+    "https://www.youtube.com/embed/Er7YBZbYphk",
+    "https://www.youtube.com/embed/OTqLm_Eq4Ww"
+  ],
+  DataStructures: [
+    "https://www.youtube.com/embed/RBSGKlAvoiM",
+    "https://www.youtube.com/embed/sVxBVvlnJsM",
+    "https://www.youtube.com/embed/8hly31xKli0",
+    "https://www.youtube.com/embed/n60Dn0UsbEk",
+    "https://www.youtube.com/embed/tX2t9RZ0KYg",
+    "https://www.youtube.com/embed/ZxNOsvH3yO0"
+  ],
+  SoftwareEngineering: [
+    "https://www.youtube.com/embed/fZb2v4FQx8M",
+    "https://www.youtube.com/embed/xtpyjPrpyX8",
+    "https://www.youtube.com/embed/o5w2F9GZ4h0",
+    "https://www.youtube.com/embed/s2G2fqnNl30",
+    "https://www.youtube.com/embed/fbR8nV-L2N4",
+    "https://www.youtube.com/embed/dBP3LElbM1o"
+  ],
+  ATCD: [
+    "https://www.youtube.com/embed/CYIb5OZPaGg",
+    "https://www.youtube.com/embed/0BdZ_NQ3GLc",
+    "https://www.youtube.com/embed/4NLmZTJvDDc",
+    "https://www.youtube.com/embed/Qd0aT5GvG2s",
+    "https://www.youtube.com/embed/lWlxmBAM3-0",
+    "https://www.youtube.com/embed/Vbg2d6Rb4TM"
+  ],
+  ML: [
+    "https://www.youtube.com/embed/GwIo3gDZCVQ",
+    "https://www.youtube.com/embed/IpGxLWOIZy4",
+    "https://www.youtube.com/embed/tPYj3fFJGjk",
+    "https://www.youtube.com/embed/5cZB6Wrzp5I",
+    "https://www.youtube.com/embed/-ETQ97mXXF0",
+    "https://www.youtube.com/embed/8z_3TqVwN3I"
+  ],
+  CN: [
+    "https://www.youtube.com/embed/3QhU9jd03a0",
+    "https://www.youtube.com/embed/mP8fkcVZ4Zg",
+    "https://www.youtube.com/embed/AqCWwaWRMb8",
+    "https://www.youtube.com/embed/F5Ri_HhziI0",
+    "https://www.youtube.com/embed/JyaT7RBGS0Q",
+    "https://www.youtube.com/embed/3FfQz1Cy1pY"
+  ],
+  IPP: [
+    "https://www.youtube.com/embed/jF_AqNCI3Kk",
+    "https://www.youtube.com/embed/V7NDbK6QCNs",
+    "https://www.youtube.com/embed/jmrwr2y_QDI",
+    "https://www.youtube.com/embed/41oJqadIJVQ",
+    "https://www.youtube.com/embed/Ity0BFg3yQE",
+    "https://www.youtube.com/embed/rEdl2Uetpvo"
+  ],
+  ".NET": [
+    "https://www.youtube.com/embed/qgm4ZC1K1Xk",
+    "https://www.youtube.com/embed/FtfV3jtmF3E",
+    "https://www.youtube.com/embed/Lv8Y1_8NKFY",
+    "https://www.youtube.com/embed/FZrm9R2aXEA",
+    "https://www.youtube.com/embed/xd3LtqZBKfM",
+    "https://www.youtube.com/embed/gxW9oeXjl1I"
+  ],
+  ANN: [
+    "https://www.youtube.com/embed/ZtxaNwW52mc",
+    "https://www.youtube.com/embed/yY3trv7p7Cg",
+    "https://www.youtube.com/embed/MFzDaBzBlL0",
+    "https://www.youtube.com/embed/aircAruvnKk",
+    "https://www.youtube.com/embed/8lx6-bVYkqY",
+    "https://www.youtube.com/embed/JBbQeP3kI-I"
+  ],
+  DDA: [
+    "https://www.youtube.com/embed/txf6tE4kD3s",
+    "https://www.youtube.com/embed/JPw0vTyrR14",
+    "https://www.youtube.com/embed/7S_z0OEg5D8",
+    "https://www.youtube.com/embed/nJjoS5J_6Bk",
+    "https://www.youtube.com/embed/JCCn0KfPZ8w",
+    "https://www.youtube.com/embed/Sqj3hEFtNDo"
+  ],
+  NLP: [
+    "https://www.youtube.com/embed/IYtFpa0yD5g",
+    "https://www.youtube.com/embed/SfkvBPt0tA8",
+    "https://www.youtube.com/embed/q1j6iP6pZ8E",
+    "https://www.youtube.com/embed/8rXD5-xhemo",
+    "https://www.youtube.com/embed/SW1X0wPVfgo",
+    "https://www.youtube.com/embed/YWnRa7wZ_6A"
+  ],
+  DL: [
+    "https://www.youtube.com/embed/aircAruvnKk",
+    "https://www.youtube.com/embed/bOFbZgH1qrQ",
+    "https://www.youtube.com/embed/i0oUi4k_2xI",
+    "https://www.youtube.com/embed/1YdKqSaS9yw",
+    "https://www.youtube.com/embed/Q2GYr6bdYFE",
+    "https://www.youtube.com/embed/yQwWWtS4H6A"
+  ],
+  IoT: [
+    "https://www.youtube.com/embed/8-IJIUnB9jU",
+    "https://www.youtube.com/embed/yxQJDO7Yjog",
+    "https://www.youtube.com/embed/ok97xxH5xyc",
+    "https://www.youtube.com/embed/GjU-4Az3fyo",
+    "https://www.youtube.com/embed/tIlCNC3v3ko",
+    "https://www.youtube.com/embed/j1G3Oa3bTOM"
+  ],
+  IBD: [
+    "https://www.youtube.com/embed/Z6Fe2eXvCjU",
+    "https://www.youtube.com/embed/o9HZfqhM3kY",
+    "https://www.youtube.com/embed/W8rLEzE_9_c",
+    "https://www.youtube.com/embed/jbF_CrDx5K4",
+    "https://www.youtube.com/embed/YfUKPe4r8Xo",
+    "https://www.youtube.com/embed/K_bV6CHUlXc"
+  ],
+  OR: [
+    "https://www.youtube.com/embed/cs2c2kekTiA",
+    "https://www.youtube.com/embed/Y5RJs2cPf7o",
+    "https://www.youtube.com/embed/N2_mQf6GxIE",
+    "https://www.youtube.com/embed/OfvKoPaXRiE",
+    "https://www.youtube.com/embed/W7uyRxJGry8",
+    "https://www.youtube.com/embed/69WUzCExJ8Q"
+  ],
+  CS: [
+    "https://www.youtube.com/embed/oPjIN1i0C7Q",
+    "https://www.youtube.com/embed/vqIqBz6jT3A",
+    "https://www.youtube.com/embed/1QEL1A0qnMY",
+    "https://www.youtube.com/embed/BffVMs6AFNg",
+    "https://www.youtube.com/embed/1u6v3hLX4lY",
+    "https://www.youtube.com/embed/8LVV3UftLJ4"
+  ],
+  DID: [
+    "https://www.youtube.com/embed/I8FipcyZWkM",
+    "https://www.youtube.com/embed/8xZZ9BM8SJE",
+    "https://www.youtube.com/embed/Nu3hF4-dR2E",
+    "https://www.youtube.com/embed/3Jiu8Cqrb8s",
+    "https://www.youtube.com/embed/52n8Siy0ZsM",
+    "https://www.youtube.com/embed/BVEgD5WVkIk"
+  ],
+  UHV: [
+    "https://www.youtube.com/embed/vsVYZkj4Xcg",
+    "https://www.youtube.com/embed/FvXozC0QZ4o",
+    "https://www.youtube.com/embed/hffhZR9t8KI",
+    "https://www.youtube.com/embed/owrT2DKAwmY",
+    "https://www.youtube.com/embed/0_5jNHDzkM4",
+    "https://www.youtube.com/embed/O2fsVJRxbbE"
+  ],
+  GB: [
+    "https://www.youtube.com/embed/dINZ5cRI5K8",
+    "https://www.youtube.com/embed/d_FGKnq4E9Q",
+    "https://www.youtube.com/embed/KMrfP5Yb8iY",
+    "https://www.youtube.com/embed/9tYi2LKI4-8",
+    "https://www.youtube.com/embed/4KFu59zCKF4",
+    "https://www.youtube.com/embed/KtsLDrY23UU"
+  ]
+           
+    };
+
+    window.onload = () => {
+      const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+      const subjects = userData.subjects || [];
+      const name = userData.fullName || '';
+
+      document.getElementById('userName').textContent = name ? `Hello, ${name}` : '';
+      document.getElementById('subjectHeading').textContent = subjects.length > 0
+        ? `Subjects: ${subjects.join(', ')}`
+        : '';
+
+      const container = document.getElementById("videoCards");
+
+      subjects.forEach(subject => {
+        const key = Object.keys(videoDB).find(s => s.toLowerCase() === subject.toLowerCase());
+
+        if (key && videoDB[key]) {
+          videoDB[key].slice(0, 6).forEach((url, index) => {
+            const card = document.createElement('div');
+            card.className = "bg-white/80 p-4 rounded-xl shadow-xl backdrop-blur-md";
+
+            card.innerHTML = `
+              <h3 class="text-lg font-semibold text-indigo-700 mb-2">${key} Video ${index + 1}</h3>
+              <iframe class="w-full aspect-video rounded mb-3" src="${url}" frameborder="0" allowfullscreen></iframe>
+              <a href="${url}" target="_blank" class="block text-center bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                ▶ Watch
+              </a>
+            `;
+
+            container.appendChild(card);
+          });
+        }
+      });
+    };
+  </script>
+
+</body>
+</html>

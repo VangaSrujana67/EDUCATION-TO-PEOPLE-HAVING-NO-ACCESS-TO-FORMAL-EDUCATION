@@ -1,0 +1,83 @@
+/* ——— Global Design Tokens ——— */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+:root{
+  --primary:  #6366f1;   /* indigo‑500 */
+  --secondary:#8b5cf6;   /* violet‑500 */
+  --bg-light: #f8fafc;   /* slate‑50  */
+  --text-dark:#1f2937;   /* slate‑800 */
+  --radius:   1.25rem;
+}
+
+*{box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+/* ——— Base ——— */
+body{
+  margin:0;
+  background:var(--bg-light);
+  color:var(--text-dark);
+  line-height:1.6;
+}
+
+/* Blur glass‑like navbar */
+nav{
+  backdrop-filter:blur(12px);
+  background:rgba(255,255,255,.75);
+  border-bottom:1px solid #e5e7eb;
+}
+
+/* Hero section with wavy edge */
+.hero{
+  min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);
+  color:#fff;clip-path:polygon(0 0,100% 0,100% 85%,0 100%);
+}
+
+/* Buttons */
+.btn-primary{
+  background:var(--primary);color:#fff;border:none;padding:.75rem 1.5rem;border-radius:var(--radius);font-weight:600;
+  cursor:pointer;transition:transform .2s,box-shadow .2s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(99,102,241,.25)}
+
+/* Card look */
+.card{
+  background:#fff;border-radius:var(--radius);padding:1.5rem;
+  box-shadow:0 6px 14px rgba(0,0,0,.06);
+  transition:transform .2s,box-shadow .2s;
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,.08)}
+
+/* Simple fade‑in utility */
+.fade-in{opacity:0;animation:fadeIn .8s ease forwards}@keyframes fadeIn{to{opacity:1}}
+
+/* Modal backdrop */
+.modal{backdrop-filter:blur(4px)}
+
+/* Minimal custom scrollbar */
+.scrollbar::-webkit-scrollbar{width:6px}
+.scrollbar::-webkit-scrollbar-thumb{background:var(--primary);border-radius:3px}
+
+/* Progress bar */
+.progress-wrap{height:.75rem;background:#e2e8f0;border-radius:9999px;overflow:hidden}
+.progress-inner{height:100%;background:var(--primary);width:0;transition:width .4s}
+/* ——— NEW BADGE & ICON HELPERS ——— */
+.badge      {padding:.125rem .5rem;font-size:.75rem;border-radius:9999px;color:#fff}
+.badge.beg  {background:#38bdf8}   /* sky‑400  */
+.badge.int  {background:#facc15}   /* yellow‑400*/
+.badge.adv  {background:#f97316}   /* orange‑500*/
+
+.icon-play  {display:inline-block;width:1.25rem;height:1.25rem;background:url('https://cdn.jsdelivr.net/gh/tabler/icons/icons/play-circle.svg') no-repeat center /contain}
+.icon-lock  {display:inline-block;width:1.25rem;height:1.25rem;background:url('https://cdn.jsdelivr.net/gh/tabler/icons/icons/lock.svg')        no-repeat center /contain}
+
+.card:hover .icon-play{transform:scale(1.1)}
+.card:hover .icon-lock{transform:scale(1.1)}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Activity – DigitalBridge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-image: url('pixel.jpg'); /* Replace with your actual background image */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans backdrop-blur-md bg-white/60">
+
+  <!-- NAVBAR -->
+  <nav class="bg-white/80 shadow-md py-4 px-6 flex justify-between items-center backdrop-blur-sm">
+    <h1 class="text-2xl font-bold text-indigo-700">DigitalBridge</h1>
+    <a href="index.html" class="text-sm bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600">
+      Home
+    </a>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="text-center mt-10">
+    <h2 class="text-3xl font-bold text-indigo-700 mb-4">📺 My Watched Videos</h2>
+  </header>
+
+  <!-- VIDEO SECTION -->
+  <section class="max-w-6xl mx-auto px-6 py-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      
+      <!-- Java Video Card -->
+      <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md overflow-hidden">
+        <iframe class="w-full h-48" src="https://www.youtube.com/embed/GoXwIVyNvX0"
+                title="Java Programming Tutorial" frameborder="0" allowfullscreen></iframe>
+        <div class="p-4">
+          <h3 class="text-lg font-semibold text-indigo-700">Java Full Course – Learn Java in 8 Hours</h3>
+          <p class="text-sm text-gray-600 mt-2">Watched on: July 16, 2025</p>
+        </div>
+      </div>
+
+      <!-- More video cards can be added below in the same format -->
+
+    </div>
+  </section>
+
+</body>
+</html>

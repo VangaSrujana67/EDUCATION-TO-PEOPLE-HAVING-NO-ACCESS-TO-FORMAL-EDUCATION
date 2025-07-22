@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lessons – DigitalBridge</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body class="p-6 fade-in bg-gray-50">
+
+  <!-- Header -->
+  <header class="flex justify-between items-center mb-6">
+    <h1 id="pageTitle" class="text-2xl font-bold">Loading…</h1>
+    <a href="index.html" class="text-indigo-600 hover:underline transition">← Home</a>
+  </header>
+
+  <!-- Progress bar -->
+  <div class="progress-wrap mb-8">
+    <div id="progressBar" class="progress-inner"></div>
+  </div>
+
+  <!-- Lessons -->
+  <div id="lessonGrid"
+       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+  <!-- Floating AI Tutor -->
+  <button id="askBot"
+          class="fixed bottom-6 right-6 bg-indigo-600 rounded-full w-14 h-14 flex items-center justify-center
+                 text-white text-2xl shadow-lg hover:bg-indigo-700 transition">💬</button>
+
+  <!-- AI Modal -->
+  <div id="botModal" class="modal hidden fixed inset-0 flex items-center justify-center">
+    <div class="bg-white rounded-xl p-8 w-[90%] md:w-[500px] shadow-xl">
+      <h3 class="text-xl font-bold mb-2">Ask AI Tutor</h3>
+      <input id="userPrompt" class="w-full border p-2 rounded mb-3" placeholder="E.g., How do I pay bills online?" />
+      <button id="sendBtn" class="btn-primary w-full mt-1">Send</button>
+      <p id="botReply" class="mt-4 text-gray-800 whitespace-pre-line"></p>
+      <button onclick="closeModal()" class="mt-4 text-sm text-indigo-600 hover:underline">Close</button>
+    </div>
+  </div>
+
+  <!-- Video Modal -->
+  <div id="videoModal"
+       class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-xl w-[90%] md:w-[720px] aspect-video relative overflow-hidden">
+      <iframe id="videoFrame" class="w-full h-full" src="" allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      <button id="closeVideo"
+              class="absolute top-2 right-2 text-white bg-black bg-opacity-60 rounded-full w-8 h-8 flex items-center
+                     justify-center font-bold hover:bg-opacity-80">✕</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

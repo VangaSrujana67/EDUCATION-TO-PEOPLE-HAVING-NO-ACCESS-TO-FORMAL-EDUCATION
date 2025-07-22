@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DigitalBridge – Home</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="fade-in">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-6 py-3">
+    <h1 class="text-xl font-bold">DigitalBridge</h1>
+    <div class="space-x-6">
+      <a href="index.html"  class="hover:underline">Home</a>
+      <a href="assessment.html" class="hover:underline">Start Learning</a>
+      <a href="forum.html" class="hover:underline">Forum</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Digital skills for everyone.</h2>
+    <p class="max-w-xl mx-auto mb-8 text-lg opacity-90">
+      Free, friendly tutorials that teach email, browsing, and online safety – no prior experience required.
+    </p>
+    <a href="assessment.html" class="btn-primary">Begin Assessment</a>
+  </section>
+
+  <!-- Key Features -->
+  <section class="px-6 py-16 max-w-6xl mx-auto grid gap-8 md:grid-cols-3">
+    <div class="card">
+      <h3 class="font-semibold text-xl mb-2">Adaptive Learning</h3>
+      <p>Lessons change to match your pace and current knowledge.</p>
+    </div>
+    <div class="card">
+      <h3 class="font-semibold text-xl mb-2">Community Support</h3>
+      <p>Get answers and encouragement from mentors and peers.</p>
+    </div>
+    <div class="card">
+      <h3 class="font-semibold text-xl mb-2">AI Tutor</h3>
+      <p>Ask questions anytime – our chatbot is here 24×7 in your language.</p>
+    </div>
+  </section>
+
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DigitalBridge – Learn by Category</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .floating-chat {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #4f46e5;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+    .floating-chat:hover {
+      background: #3730a3;
+    }
+    .chatbox {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      padding: 15px;
+      display: none;
+    }
+    .chatbox textarea {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 8px;
+      resize: none;
+    }
+    .chatbox button {
+      background: #4f46e5;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-tr from-gray-100 to-gray-50 min-h-screen p-6 font-sans">
+  <!-- Header -->
+  <div class="mb-10 text-center">
+    <h1 class="text-4xl font-extrabold text-indigo-700">Welcome to DigitalBridge</h1>
+    <p class="text-gray-600 mt-2 text-lg">Choose a learning path that suits your goals:</p>
+    <a href="assessment.html" class="text-indigo-600 hover:underline text-sm inline-block mt-2">Not sure where to start? Take a 2‑min skill assessment →</a>
+  </div>
+
+  <!-- Category Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <a href="lessons.html?category=digital" class="bg-white shadow-lg rounded-xl p-6 hover:scale-105 transform transition">
+      <h2 class="text-xl font-bold text-indigo-700 mb-2">🧠 Digital Literacy</h2>
+      <p class="text-gray-600 text-sm">Learn the basic skills to operate devices and browse safely.</p>
+    </a>
+
+    <a href="lessons.html?category=education" class="bg-white shadow-lg rounded-xl p-6 hover:scale-105 transform transition">
+      <h2 class="text-xl font-bold text-blue-600 mb-2">🏫 Education Tools</h2>
+      <p class="text-gray-600 text-sm">Use email, YouTube, Meet, and other online learning platforms.</p>
+    </a>
+
+    <a href="lessons.html?category=banking" class="bg-white shadow-lg rounded-xl p-6 hover:scale-105 transform transition">
+      <h2 class="text-xl font-bold text-green-600 mb-2">🏦 Banking & Payments</h2>
+      <p class="text-gray-600 text-sm">Handle money digitally using UPI, net banking, and secure apps.</p>
+    </a>
+
+    <a href="lessons.html?category=shopping" class="bg-white shadow-lg rounded-xl p-6 hover:scale-105 transform transition">
+      <h2 class="text-xl font-bold text-pink-600 mb-2">🛒 Online Shopping</h2>
+      <p class="text-gray-600 text-sm">Buy essentials safely on Amazon, Flipkart, and more.</p>
+    </a>
+
+    <a href="lessons.html?category=government" class="bg-white shadow-lg rounded-xl p-6 hover:scale-105 transform transition">
+      <h2 class="text-xl font-bold text-yellow-600 mb-2">📋 Government Services</h2>
+      <p class="text-gray-600 text-sm">Pay utility bills, book tickets, and use Digilocker services.</p>
+    </a>
+
+    <a href="lessons.html?category=career" class="bg-white shadow-lg rounded-xl p-6 hover:scale-105 transform transition">
+      <h2 class="text-xl font-bold text-purple-600 mb-2">💼 Career & Jobs</h2>
+      <p class="text-gray-600 text-sm">Build resumes, apply for jobs online, and attend interviews.</p>
+    </a>
+
+    <a href="lessons.html?category=senior" class="bg-white shadow-lg rounded-xl p-6 hover:scale-105 transform transition">
+      <h2 class="text-xl font-bold text-red-600 mb-2">🧓 Senior Citizen Help</h2>
+      <p class="text-gray-600 text-sm">Make doctor appointments, use WhatsApp, and avoid scams.</p>
+    </a>
+  </div>
+
+  <!-- Floating Chatbot Button -->
+  <div class="floating-chat" onclick="toggleChat()">💬</div>
+  <div class="chatbox" id="chatBox">
+    <textarea rows="3" id="chatInput" placeholder="Ask me anything..."></textarea>
+    <button onclick="askBot()">Ask</button>
+    <p id="chatReply" class="text-sm text-gray-800 mt-2 whitespace-pre-line"></p>
+  </div>
+
+  <script>
+    function toggleChat() {
+      const box = document.getElementById('chatBox');
+      box.style.display = box.style.display === 'none' || box.style.display === '' ? 'block' : 'none';
+    }
+
+    async function askBot() {
+      const prompt = document.getElementById('chatInput').value.trim();
+      const replyBox = document.getElementById('chatReply');
+      if (!prompt) return;
+      replyBox.textContent = 'Thinking...';
+      try {
+        const res = await fetch('http://localhost:5000/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+        const data = await res.json();
+        replyBox.textContent = data.reply || 'No response.';
+      } catch {
+        replyBox.textContent = 'Server error.';
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+.js file 
+<!-- firebaseConfig.js -->
+<script type="module">
+  // TODO: paste your keys below ---------------------
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "1234567890",
+    appId: "YOUR_APP_ID"
+  };
+  // -------------------------------------------------
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth }      from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  window.app  = initializeApp(firebaseConfig);
+  window.auth = getAuth(app);
+</script>

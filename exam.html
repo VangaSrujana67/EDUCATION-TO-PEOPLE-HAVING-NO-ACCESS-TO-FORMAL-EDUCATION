@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Classroom</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6 relative">
+
+  <!-- Top-right: Home button + Profile icon -->
+  <div class="absolute top-4 right-4 flex gap-4 items-center z-50">
+    <button onclick="window.location.href='index.html'"
+      class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-full text-sm">
+      Home
+    </button>
+    <div class="w-10 h-10 rounded-full border-2 border-indigo-600 flex items-center justify-center">
+      <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M5.121 17.804A9.003 9.003 0 0112 15a9.003 9.003 0 016.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Heading -->
+  <div class="max-w-6xl mx-auto mt-20">
+    <h1 class="text-3xl font-bold text-indigo-700 mb-2">🎓 Welcome to Your Classroom</h1>
+    <p id="userName" class="text-lg text-gray-700"></p>
+    <p id="subjectHeading" class="text-md mt-2 font-medium text-gray-700"></p>
+  </div>
+
+  <!-- Videos -->
+  <div class="max-w-6xl mx-auto mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="videoCards"></div>
+
+  <script>
+    const videosBySubject = {
+      English: [{ title: "Grade 1 English Basics", url: "https://www.youtube.com/embed/b3v7_4EjDuk" }],
+      Telugu: [{ title: "Telugu Basics", url: "https://www.youtube.com/embed/sj0kS7L8KTI" }],
+      Maths: [{ title: "Addition & Subtraction", url: "https://www.youtube.com/embed/nlUQ1O2xtk8" }],
+      Physics: [{ title: "Laws of Motion", url: "https://www.youtube.com/embed/fPp2oNafkUo" }],
+      Chemistry: [{ title: "Intro to Chemistry", url: "https://www.youtube.com/embed/YVd4iALPQ24" }],
+      Biology: [{ title: "Cell Structure", url: "https://www.youtube.com/embed/GHoaiZlKSTI" }],
+      Social: [{ title: "Indian Geography", url: "https://www.youtube.com/embed/35Y7-JBxHZA" }],
+      Computer: [{ title: "Computer Basics", url: "https://www.youtube.com/embed/HVsySz-h9r4" }],
+      Python: [{ title: "Python Full Course", url: "https://www.youtube.com/embed/rfscVS0vtbw" }],
+      Java: [{ title: "Java for Beginners", url: "https://www.youtube.com/embed/rV_3Lewxx6o" }],
+      DBMS: [{ title: "DBMS Tutorial", url: "https://www.youtube.com/embed/ztHopE5Wnpc" }],
+      AI: [{ title: "What is AI?", url: "https://www.youtube.com/embed/JMUxmLyrhSk" }],
+      CN: [{ title: "Computer Networks", url: "https://www.youtube.com/embed/3QhU9jd03a0" }],
+      OS: [{ title: "Operating Systems", url: "https://www.youtube.com/embed/XgQo4JkN3UI" }],
+      IoT: [{ title: "Internet of Things", url: "https://www.youtube.com/embed/LlhmzVL5bm8" }],
+      ML: [{ title: "Machine Learning Intro", url: "https://www.youtube.com/embed/GwIo3gDZCVQ" }],
+      NLP: [{ title: "Natural Language Processing", url: "https://www.youtube.com/embed/8t0vNu2fCCM" }],
+      DL: [{ title: "Deep Learning Tutorial", url: "https://www.youtube.com/embed/aircAruvnKk" }],
+      "P&S": [{ title: "Probability & Stats", url: "https://www.youtube.com/embed/Kf7ntrIrL3k" }],
+      "C": [{ title: "C Programming Basics", url: "https://www.youtube.com/embed/irqbmMNs2Bo" }],
+      "M-1": [{ title: "Maths 1 Overview", url: "https://www.youtube.com/embed/3UczjzF20kI" }],
+      "M-2": [{ title: "Maths 2 Concepts", url: "https://www.youtube.com/embed/bKz1F1f-Dww" }]
+    };
+
+    window.onload = () => {
+      const userData = JSON.parse(localStorage.getItem('userData')) || {};
+      const subjects = userData.subjects || [];
+      const name = userData.fullName || '';
+
+      // Display greeting
+      document.getElementById('userName').textContent = name ? `Hello, ${name}` : '';
+      document.getElementById('subjectHeading').textContent = subjects.length > 0
+        ? `Subjects: ${subjects.join(', ')}`
+        : 'No subjects selected.';
+
+      const container = document.getElementById("videoCards");
+
+      subjects.forEach(subject => {
+        const match = Object.keys(videosBySubject).find(key => key.toLowerCase() === subject.toLowerCase());
+
+        if (match) {
+          videosBySubject[match].forEach(video => {
+            const card = document.createElement('div');
+            card.className = "bg-white p-4 rounded-xl shadow";
+
+            card.innerHTML = `
+              <h3 class="text-lg font-semibold text-indigo-700 mb-2">${video.title}</h3>
+              <iframe class="w-full aspect-video rounded mb-3" src="${video.url}" frameborder="0" allowfullscreen></iframe>
+              <a href="${video.url}" target="_blank"
+                 class="block text-center bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                 ▶ Watch
+              </a>
+            `;
+
+            container.appendChild(card);
+          });
+        } else {
+          const fallback = document.createElement('div');
+          fallback.className = "col-span-3 text-gray-500 text-sm italic";
+          fallback.textContent = `No videos found for: ${subject}`;
+          container.appendChild(fallback);
+        }
+      });
+    };
+  </script>
+</body>
+</html>

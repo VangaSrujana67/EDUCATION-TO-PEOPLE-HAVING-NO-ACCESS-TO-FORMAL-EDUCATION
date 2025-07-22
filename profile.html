@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #10b981;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
+
+  <!-- Success Popup -->
+  <div class="popup" id="successPopup">Profile Saved!</div>
+
+  <div class="bg-white shadow-xl rounded-xl w-full max-w-md p-6">
+    <h2 class="text-xl font-bold text-indigo-700 mb-4 text-center">My Profile</h2>
+
+    <form id="profileForm" class="space-y-4">
+      <!-- Full Name -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
+        <input id="fullName" type="text" class="w-full border border-gray-300 rounded-md px-3 py-2" readonly />
+      </div>
+
+      <!-- School -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">School Name</label>
+        <input type="text" id="school" class="w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter school name" />
+      </div>
+
+      <!-- Class -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Class</label>
+        <input type="text" id="class" class="w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter class" />
+      </div>
+
+      <!-- Percentage -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Percentage</label>
+        <input type="text" id="percentage" class="w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Ex: 85.4%" />
+      </div>
+
+      <!-- Mobile -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Mobile Number</label>
+        <input type="tel" id="mobile" class="w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Ex: 9876543210" />
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" id="submitBtn" class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700" disabled>
+        Save Profile
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const fullName = document.getElementById('fullName');
+    const school = document.getElementById('school');
+    const classInput = document.getElementById('class');
+    const percentage = document.getElementById('percentage');
+    const mobile = document.getElementById('mobile');
+    const submitBtn = document.getElementById('submitBtn');
+    const popup = document.getElementById('successPopup');
+
+    // Load saved full name from form.html
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    if (userData.fullName) {
+      fullName.value = userData.fullName;
+    }
+
+    // Load saved profile data if available
+    const savedProfile = JSON.parse(localStorage.getItem('profileDetails') || '{}');
+    if (savedProfile.school) school.value = savedProfile.school;
+    if (savedProfile.class) classInput.value = savedProfile.class;
+    if (savedProfile.percentage) percentage.value = savedProfile.percentage;
+    if (savedProfile.mobile) mobile.value = savedProfile.mobile;
+
+    // Enable submit button only when all fields are filled
+    function checkAllFields() {
+      if (
+        school.value.trim() &&
+        classInput.value.trim() &&
+        percentage.value.trim() &&
+        mobile.value.trim()
+      ) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('bg-indigo-400', 'cursor-not-allowed');
+        submitBtn.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+      } else {
+        submitBtn.disabled = true;
+        submitBtn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+        submitBtn.classList.add('bg-indigo-400', 'cursor-not-allowed');
+      }
+    }
+
+    // Attach input listeners
+    [school, classInput, percentage, mobile].forEach(input =>
+      input.addEventListener('input', checkAllFields)
+    );
+
+    // Trigger once on page load
+    checkAllFields();
+
+    // Submit logic
+    document.getElementById('profileForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const profileData = {
+        fullName: fullName.value,
+        school: school.value,
+        class: classInput.value,
+        percentage: percentage.value,
+        mobile: mobile.value
+      };
+
+      localStorage.setItem('profileDetails', JSON.stringify(profileData));
+
+      // Show popup
+      popup.style.display = 'block';
+
+      setTimeout(() => {
+        popup.style.display = 'none';
+        window.location.href = 'index.html';
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
