@@ -5,7 +5,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend requests
 
-API_KEY = "AIzaSyBgwYMUhxxSwW-_5H8yUnTmsj2w53En_vw"  # 🔁 Replace with your actual Gemini API key
+API_KEY = " Replace with your actual Gemini API key"  # 🔁 Replace with your actual Gemini API key
 
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
